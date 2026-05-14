@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MotivAPI — Frases que inspiran</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0b0b0f;
+  --bg2: #121218;
+  --bg3: #1a1a22;
+
+  --card: rgba(255,255,255,0.04);
+  --card-hover: rgba(255,255,255,0.08);
+
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.14);
+
+  --text: #f5f5f7;
+  --muted: #9a9aa3;
+
+  --accent: #8b5cf6;
+  --accent2: #7c3aed;
+
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+
+  --radius: 14px;
+  --radius-lg: 24px;
+}
+
+body {
+  background:
+    radial-gradient(circle at top, rgba(139,92,246,0.12), transparent 35%),
+    radial-gradient(circle at 80% 20%, rgba(92, 172, 255, 0.08), transparent 50%),
+    var(--bg);
+
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ANIMATIONS */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -468px 0; }
+  100% { background-position: 468px 0; }
+}
+
+/* HERO */
+.hero {
+  padding: 120px 24px 80px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.particle:nth-child(1) { width: 4px; height: 4px; top: 20%; left: 10%; animation-delay: 0s; }
+.particle:nth-child(2) { width: 2px; height: 2px; top: 60%; right: 15%; animation-delay: 2s; }
+.particle:nth-child(3) { width: 3px; height: 3px; top: 30%; right: 25%; animation-delay: 4s; }
+
+.badge {
+  display: inline-block;
+  background: rgba(139,92,246,0.12);
+  color: #c4b5fd;
+  border: 1px solid rgba(139,92,246,0.25);
+  border-radius: 999px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+  padding: 6px 16px;
+  margin-bottom: 28px;
+  animation: pulse 2s infinite;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 8vw, 92px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 20px;
+}
+
+.hero h1 span {
+  color: var(--accent);
+  text-shadow: 0 0 30px rgba(139,92,246,0.35);
+  position: relative;
+}
+
+.hero h1 span::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 560px;
+  margin: 0 auto 36px;
+  font-size: 17px;
+}
+
+.hero-url {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border2);
+  border-radius: 999px;
+  padding: 12px 20px;
+  color: #c4b5fd;
+  transition: all 0.3s ease;
+}
+
+.hero-url:hover {
+  background: rgba(139,92,246,0.12);
+  border-color: var(--accent);
+  transform: scale(1.05);
+}
+
+/* LAYOUT */
+.container {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+section:last-child {
+  border-bottom: none;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-label i {
+  font-size: 14px;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-bottom: 40px;
+  max-width: 520px;
+  font-size: 16px;
+}
+
+/* CARDS */
+.demo-card,
+.stat-box,
+.feature-card {
+  background: var(--card);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.demo-card::before,
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139,92,246,0.3), transparent);
+}
+
+.demo-card,
+.feature-card {
+  padding: 40px;
+}
+
+.stat-box {
+  padding: 24px;
+  text-align: center;
+}
+
+.demo-card:hover,
+.stat-box:hover,
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(139,92,246,0.2);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* BUTTONS */
+.demo-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.ctrl-btn {
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ctrl-btn:hover {
+  border-color: rgba(139,92,246,0.4);
+  color: #d8b4fe;
+  transform: translateY(-1px);
+}
+
+.ctrl-btn.active {
+  background: rgba(139,92,246,0.16);
+  border-color: rgba(139,92,246,0.35);
+  color: #d8b4fe;
+  box-shadow: 0 0 20px rgba(139,92,246,0.2);
+}
+
+.ctrl-btn.primary {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+  border: none;
+}
+
+/* QUOTE */
+.quote-display {
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.quote-mark {
+  font-family: var(--font-display);
+  font-size: 80px;
+  color: var(--accent);
+  opacity: 0.2;
+  line-height: 0.6;
+  margin-bottom: 16px;
+}
+
+.quote-text {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.quote-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.quote-author {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: #c4b5fd;
+  font-weight: 500;
+}
+
+.quote-profession {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  background: rgba(255,255,255,0.06);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.quote-category {
+  font-size: 11px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.quote-id {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+/* CATEGORIES */
+.cats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.cat-pill {
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text);
+  transition: all 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.cat-pill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s;
+}
+
+.cat-pill:hover::before {
+  left: 100%;
+}
+
+.cat-pill:hover {
+  transform: translateY(-4px);
+  border-color: rgba(139,92,246,0.4);
+  color: #d8b4fe;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.cat-count {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+  display: block;
+}
+
+/* STATS */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 60px;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 42px;
+  color: #d8b4fe;
+  line-height: 1;
+}
+
+.stat-lbl {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+  font-family: var(--font-mono);
+}
+
+/* FEATURES */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: white;
+}
+
+.feature-card h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+/* RECENT QUOTES */
+.recent-quotes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quote-mini {
+  padding: 20px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.quote-mini:hover {
+  background: rgba(139,92,246,0.08);
+  border-color: rgba(139,92,246,0.2);
+  transform: translateX(8px);
+}
+
+.quote-mini-mark {
+  font-size: 24px;
+  color: var(--accent);
+  opacity: 0.4;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.quote-mini-text {
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.quote-mini-author {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* FOOTER */
+footer {
+  padding: 60px 24px 40px;
+  text-align: center;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--accent);
+}
+</style>
+</head>
+<body>
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <div class="hero">
+    <div class="badge"><i class="fas fa-sparkles"></i> API Lista</div>
+    <h1>Motiv<span>API</span></h1>
+    <p>La API definitiva de frases motivacionales. 125+ citas inspiradoras listas para tu app, web o proyecto.</p>
+    <div class="hero-url">https://motivapi.com/api/v1</div>
+  </div>
+
+  <div class="container">
+    <!-- ── STATS ── -->
+    <section>
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-num" id="total-quotes">0</div>
+          <div class="stat-lbl">Frases</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="total-cats">0</div>
+          <div class="stat-lbl">Categorías</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="total-authors">0</div>
+          <div class="stat-lbl">Autores</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num"><i class="fas fa-bolt"></i></div>
+          <div class="stat-lbl">Solo GET</div>
+        </div>
+      </div>
+
+      <!-- DEMO -->
+      <div class="section-label">
+        <i class="fas fa-play-circle"></i>
+        Probá la API
+      </div>
+      <h2>Demo en vivo</h2>
+      <p class="subtitle">Llamadas reales a la API. Filtrá por categoría o pedí una frase aleatoria.</p>
+
+      <div class="demo-card">
+        <div class="demo-controls">
+          <button class="ctrl-btn active" data-cat=""><i class="fas fa-th"></i> Todas</button>
+          <button class="ctrl-btn" data-cat="motivacion"><i class="fas fa-fire"></i> Motivación</button>
+          <button class="ctrl-btn" data-cat="exito"><i class="fas fa-trophy"></i> Éxito</button>
+          <button class="ctrl-btn" data-cat="sabiduria"><i class="fas fa-lightbulb"></i> Sabiduría</button>
+          <button class="ctrl-btn" data-cat="perseverancia"><i class="fas fa-mountain"></i> Perseverancia</button>
+          <button class="ctrl-btn" data-cat="vida"><i class="fas fa-heart"></i> Vida</button>
+          <button class="ctrl-btn primary" id="btn-random"><i class="fas fa-dice"></i> Aleatoria</button>
+        </div>
+
+        <div class="quote-display">
+          <div class="quote-mark">"</div>
+          <div class="quote-text" id="quote-text">Cargando frase...</div>
+          <div class="quote-meta">
+            <div class="quote-author" id="quote-author"></div>
+            <div class="quote-profession" id="quote-profession"></div>
+            <div class="quote-category" id="quote-category"></div>
+            <div class="quote-id" id="quote-id"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FEATURES ── -->
+    <section>
+      <div class="section-label">
+        <i class="fas fa-rocket"></i>
+        Características
+      </div>
+      <h2>Todo lo que necesitás</h2>
+      <p class="subtitle">Rápida, confiable y lista para producción.</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+          <h3>Ultra Rápida</h3>
+          <p>Respuestas en menos de 10ms. Optimizada para alto tráfico.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-lock"></i></div>
+          <h3>Sin Auth</h3>
+          <p>Solo peticiones GET. Sin claves ni complicaciones.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+          <h3>Multiplataforma</h3>
+          <p>Perfecta para apps móviles, webs y bots.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CATEGORÍAS ── -->
+    <section>
+      <div class="section-label">
+        <i class="fas fa-tags"></i>
+        Explorar
+      </div>
+      <h2>Categorías disponibles</h2>
+      <p class="subtitle">Navegá todas las categorías y sus frases.</p>
+      <div class="cats-grid" id="cats-grid"></div>
+    </section>
+
+    <!-- ── RECENT QUOTES ── -->
+    <section>
+      <div class="section-label">
+        <i class="fas fa-clock"></i>
+        Últimas
+      </div>
+      <h2>Frases recientes</h2>
+      <p class="subtitle">Las más recientes de la colección.</p>
+      <div class="recent-quotes" id="recent-quotes"></div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="#" class="footer-link"><i class="fab fa-github"></i> GitHub</a>
+      <a href="#" class="footer-link"><i class="fab fa-twitter"></i> Twitter</a>
+      <a href="#" class="footer-link"><i class="fas fa-code"></i> Docs</a>
+      <a href="#" class="footer-link"><i class="fas fa-envelope"></i> Contacto</a>
+    </div>
+    <div>MotivAPI Hecho con ❤️ por Claude y Arrayago. Derechos reservados 2030.</div>
+  </footer>
+
+<script>
+/* ── DATA ── */
+const QUOTES = [
+  // ORIGINALES (25)
+  {id:1,text:"El único modo de hacer un gran trabajo es amar lo que hacés.",author:"Steve Jobs",profession:"Fundador de Apple",category:"motivacion"},
+  {id:2,text:"Primero resolvé el problema. Luego escribí el código.",author:"John Johnson",profession:"Ingeniero de Software",category:"exito"},
+  {id:3,text:"La vida es lo que pasa mientras estás ocupado haciendo otros planes.",author:"John Lennon",profession:"Músico",category:"vida"},
+  {id:4,text:"El éxito es ir de fracaso en fracaso sin perder el entusiasmo.",author:"Winston Churchill",profession:"Primer Ministro Británico",category:"perseverancia"},
+  {id:5,text:"No cuentes los días, hacé que los días cuenten.",author:"Muhammad Ali",profession:"Boxeador",category:"motivacion"},
+  {id:6,text:"Sé el cambio que querés ver en el mundo.",author:"Mahatma Gandhi",profession:"Líder Independencia India",category:"sabiduria"},
+  {id:7,text:"Todo lo que puedas imaginar es real.",author:"Pablo Picasso",profession:"Pintor",category:"vida"},
+  {id:8,text:"La felicidad no es algo hecho. Viene de tus propias acciones.",author:"Dalai Lama",profession:"Líder Espiritual",category:"sabiduria"},
+  {id:9,text:"Haz hoy lo que otros no harán para tener mañana lo que otros no tendrán.",author:"Jerry Rice",profession:"Jugador NFL",category:"exito"},
+  {id:10,text:"Caí siete veces, me levanté ocho.",author:"Proverbio japonés",profession:"Sabiduría Popular",category:"perseverancia"},
+  {id:11,text:"Tu tiempo es limitado. No lo desperdicies viviendo la vida de otro.",author:"Steve Jobs",profession:"Fundador de Apple",category:"vida"},
+  {id:12,text:"La creatividad es la inteligencia divirtiéndose.",author:"Albert Einstein",profession:"Físico",category:"sabiduria"},
+  {id:13,text:"El mejor momento para plantar un árbol fue hace 20 años. El segundo mejor es ahora.",author:"Proverbio chino",profession:"Sabiduría Popular",category:"motivacion"},
+  {id:14,text:"No importa cuán despacio vayas, siempre que no te detengas.",author:"Confucio",profession:"Filósofo",category:"perseverancia"},
+  {id:15,text:"Somos lo que hacemos repetidamente. La excelencia, entonces, no es un acto sino un hábito.",author:"Aristóteles",profession:"Filósofo",category:"exito"},
+  {id:16,text:"El secreto de seguir adelante es comenzar.",author:"Mark Twain",profession:"Escritor",category:"motivacion"},
+  {id:17,text:"Los que son lo suficientemente locos como para pensar que pueden cambiar el mundo, son los que lo hacen.",author:"Steve Jobs",profession:"Fundador de Apple",category:"exito"},
+  {id:18,text:"La vida sin amor es como un árbol sin flores ni frutos.",author:"Khalil Gibran",profession:"Poeta",category:"vida"},
+  {id:19,text:"No hay viento favorable para el marinero que no sabe a dónde va.",author:"Séneca",profession:"Filósofo",category:"sabiduria"},
+  {id:20,text:"Cada experto fue una vez un principiante.",author:"Helen Hayes",profession:"Actriz",category:"perseverancia"},
+  {id:21,text:"La única fuente de conocimiento es la experiencia.",author:"Albert Einstein",profession:"Físico",category:"sabiduria"},
+  {id:22,text:"Actúa como si lo que haces hiciera una diferencia. La hace.",author:"William James",profession:"Psicólogo",category:"motivacion"},
+  {id:23,text:"El futuro pertenece a quienes creen en la belleza de sus sueños.",author:"Eleanor Roosevelt",profession:"Primera Dama EE.UU.",category:"exito"},
+  {id:24,text:"No llores porque terminó, sonríe porque sucedió.",author:"Dr. Seuss",profession:"Escritor Infantil",category:"vida"},
+  {id:25,text:"Con fe, disciplina y una conciencia desinteresada del deber, nada es imposible.",author:"Muhammad Ali Jinnah",profession:"Fundador Pakistán",category:"perseverancia"},
+
+  // NUEVAS 100 FRASES
+  {id:26,text:"Lo importante no es cuánto tiempo vivimos, sino cómo lo vivimos.",author:"Sócrates",profession:"Filósofo",category:"vida"},
+  {id:27,text:"El que no se atreve, nada consigue.",author:"Molière",profession:"Dramaturgo",category:"motivacion"},
+  {id:28,text:"La mejor venganza es un éxito espectacular.",author:"Frank Sinatra",profession:"Cantante",category:"exito"},
+  {id:29,text:"No esperes. El tiempo nunca será justo.",author:"Napoleón Bonaparte",profession:"Emperador",category:"perseverancia"},
+  {id:30,text:"La mente es todo. Lo que piensas, en eso te conviertes.",author:"Buda",profession:"Fundador Budismo",category:"sabiduria"},
+  {id:31,text:"Hazlo o no lo hagas. No hay 'intento'.",author:"Yoda",profession:"Maestro Jedi",category:"motivacion"},
+  {id:32,text:"El éxito no es definitivo, el fracaso no es fatal: lo que cuenta es el coraje para continuar.",author:"Winston Churchill",profession:"Primer Ministro Británico",category:"perseverancia"},
+  {id:33,text:"No te detengas cuando estés cansado, detente cuando hayas terminado.",author:"Marilyn Monroe",profession:"Actriz",category:"perseverancia"},
+  {id:34,text:"La única manera de hacer un gran trabajo es amar lo que haces.",author:"Steve Jobs",profession:"Fundador de Apple",category:"motivacion"},
+  {id:35,text:"Si puedes soñarlo, puedes hacerlo.",author:"Walt Disney",profession:"Creador Disney",category:"exito"},
+  {id:36,text:"El futuro depende de lo que hagas hoy.",author:"Mahatma Gandhi",profession:"Líder Independencia India",category:"vida"},
+  {id:37,text:"No hay fracaso. Solo hay resultados.",author:"Tony Robbins",profession:"Coach Motivacional",category:"sabiduria"},
+  {id:38,text:"La disciplina es el puente entre metas y logros.",author:"Jim Rohn",profession:"Orador Motivacional",category:"exito"},
+  {id:39,text:"Cree que puedes y estarás a medio camino.",author:"Theodore Roosevelt",profession:"Presidente EE.UU.",category:"motivacion"},
+  {id:40,text:"El dolor es temporal. La gloria es eterna.",author:"Lance Armstrong",profession:"Ciclista",category:"perseverancia"},
+  {id:41,text:"Los límites, como los miedos, suelen ser solo una ilusión.",author:"Michael Jordan",profession:"Basquetbolista",category:"motivacion"},
+  {id:42,text:"No sueñes con el éxito, despierta y trabaja por él.",author:"Ignace Jan Paderewski",profession:"Pianista",category:"exito"},
+  {id:43,text:"La vida es 10% lo que nos pasa y 90% cómo reaccionamos.",author:"Charles R. Swindoll",profession:"Pastor",category:"vida"},
+  {id:44,text:"El conocimiento habla, pero la sabiduría escucha.",author:"Jimi Hendrix",profession:"Músico",category:"sabiduria"},
+  {id:45,text:"No dejes que el miedo a perder sea mayor que la emoción de ganar.",author:"Robert Kiyosaki",profession:"Autor Finanzas",category:"exito"},
+  {id:46,text:"La grandeza no es nacer, sino desarrollarse.",author:"Platón",profession:"Filósofo",category:"perseverancia"},
+  {id:47,text:"Cada día es una nueva oportunidad para cambiar tu vida.",author:"James Clear",profession:"Autor Hábitos",category:"motivacion"},
+  {id:48,text:"El éxito es la suma de pequeños esfuerzos repetidos día tras día.",author:"Robert Collier",profession:"Autor",category:"exito"},
+  {id:49,text:"Vive como si fueras a morir mañana. Aprende como si fueras a vivir para siempre.",author:"Mahatma Gandhi",profession:"Líder Independencia India",category:"vida"},
+  {id:50,text:"La perfección no se alcanza de la noche a la mañana.",author:"Thomas Edison",profession:"Inventor",category:"perseverancia"},
+  {id:51,text:"No te rindas. El comienzo siempre es lo más difícil.",author:"Nido Qubein",profession:"Empresario",category:"motivacion"},
+  {id:52,text:"El cambio es la ley de la vida. Quien se adapte, sobrevivirá.",author:"John F. Kennedy",profession:"Presidente EE.UU.",category:"sabiduria"},
+  {id:53,text:"Los ganadores encuentran una manera. Los perdedores encuentran una excusa.",author:"Woody Allen",profession:"Cineasta",category:"exito"},
+  {id:54,text:"La vida es lo que tú haces de ella.",author:"Andrew Carnegie",profession:"Magnate Industrial",category:"vida"},
+  {id:55,text:"El coraje no es la ausencia de miedo, sino el triunfo sobre él.",author:"Nelson Mandela",profession:"Presidente Sudáfrica",category:"perseverancia"},
+  {id:56,text:"Haz lo ordinario con excelencia extraordinaria.",author:"Stephen Covey",profession:"Autor Desarrollo Personal",category:"motivacion"},
+  {id:57,text:"El éxito es un mal maestro. Seduce a la gente inteligente a pensar que no pueden perder.",author:"Bill Gates",profession:"Fundador Microsoft",category:"sabiduria"},
+  {id:58,text:"No tengas miedo de los grandes planes. Ninguno es demasiado loco ni demasiado imposible.",author:"Nido Qubein",profession:"Empresario",category:"exito"},
+  {id:59,text:"La única persona que debes superar es la que eras ayer.",author:"Matthew McConaughey",profession:"Actor",category:"perseverancia"},
+  {id:60,text:"El trabajo duro vence al talento cuando el talento no trabaja duro.",author:"Tim Notke",profession:"Entrenador",category:"motivacion"},
+  {id:61,text:"La vida no se mide por las veces que respiras, sino por los momentos que te dejan sin aliento.",author:"Maya Angelou",profession:"Poeta",category:"vida"},
+  {id:62,text:"El fracaso es solo la oportunidad de comenzar de nuevo de forma más inteligente.",author:"Henry Ford",profession:"Fundador Ford",category:"sabiduria"},
+  {id:63,text:"No esperes a que las condiciones sean perfectas para empezar.",author:"Alan Cohen",profession:"Autor",category:"exito"},
+  {id:64,text:"La persistencia garantiza que los resultados no se retrasen indefinidamente.",author:"Brian Tracy",profession:"Orador Motivacional",category:"perseverancia"},
+  {id:65,text:"Tu actitud, no tu aptitud, determinará tu altitud.",author:"Zig Ziglar",profession:"Orador Motivacional",category:"motivacion"},
+  {id:66,text:"El éxito es hacer lo que te encanta y ganar dinero haciéndolo.",author:"Tony Robbins",profession:"Coach Motivacional",category:"exito"},
+  {id:67,text:"La vida es un viaje, no un destino.",author:"Ralph Waldo Emerson",profession:"Filósofo",category:"vida"},
+  {id:68,text:"La calidad de tu vida depende de la calidad de tus hábitos.",author:"James Clear",profession:"Autor Hábitos",category:"sabiduria"},
+  {id:69,text:"Los sueños se hacen realidad si no te alejas de ellos.",author:"Mae Jemison",profession:"Astronauta",category:"perseverancia"},
+  {id:70,text:"El primer paso es el más difícil.",author:"Marie Curie",profession:"Científica",category:"motivacion"},
+  {id:71,text:"No hay atajos al lugar donde queremos llegar.",author:"Helen Keller",profession:"Activista",category:"exito"},
+  {id:72,text:"La vida es demasiado corta para vivir el sueño de otra persona.",author:"Chris Guillebeau",profession:"Autor",category:"vida"},
+  {id:73,text:"El éxito no es la clave de la felicidad. La felicidad es la clave del éxito.",author:"Albert Schweitzer",profession:"Médico",category:"sabiduria"},
+  {id:74,text:"Cae siete veces, levántate ocho.",author:"Proverbio japonés",profession:"Sabiduría Popular",category:"perseverancia"},
+  {id:75,text:"Haz lo que debes hacer hoy, para que mañana puedas hacer lo que quieras.",author:"Anónimo",profession:"Sabiduría Popular",category:"motivacion"},
+  {id:76,text:"El éxito es la suma de pequeños esfuerzos que se repiten día tras día.",author:"Robert Collier",profession:"Autor",category:"exito"},
+  {id:77,text:"La vida es 10% lo que sucede y 90% cómo reaccionas ante ello.",author:"Charles R. Swindoll",profession:"Pastor",category:"vida"},
+  {id:78,text:"La sabiduría comienza en el asombro.",author:"Sócrates",profession:"Filósofo",category:"sabiduria"},
+  {id:79,text:"El fracaso es el condimento que da sabor al éxito.",author:"Thomas Watson Sr.",profession:"Fundador IBM",category:"perseverancia"},
+  {id:80,text:"No esperes. El momento nunca será el adecuado.",author:"Napoleón Hill",profession:"Autor Éxito",category:"motivacion"},
+  {id:81,text:"El éxito es un mal maestro. Seduce a gente inteligente a pensar que no pueden perder.",author:"Bill Gates",profession:"Fundador Microsoft",category:"exito"},
+  {id:82,text:"Vive la vida como si fuera una obra de arte.",author:"Bruce Lee",profession:"Actor/Martialista",category:"vida"},
+  {id:83,text:"La experiencia es el maestro más duro. Te enseña al costo de la experiencia.",author:"Anónimo",profession:"Sabiduría Popular",category:"sabiduria"},
+  {id:84,text:"Los obstáculos son esas cosas terribles que ves cuando apartas la vista de tus metas.",author:"Henry Ford",profession:"Fundador Ford",category:"perseverancia"},
+  {id:85,text:"La motivación te hace empezar. El hábito te hace continuar.",author:"Jim Ryun",profession:"Atleta",category:"motivacion"},
+  {id:86,text:"El éxito no se mide en dólares, sino en la diferencia que haces en la vida de otros.",author:"Michelle Obama",profession:"Primera Dama EE.UU.",category:"exito"},
+  {id:87,text:"La vida es un lienzo en blanco. Pinta lo que quieras.",author:"Anónimo",profession:"Sabiduría Popular",category:"vida"},
+  {id:88,text:"La verdadera sabiduría es saber lo que no sabes.",author:"Confucio",profession:"Filósofo",category:"sabiduria"},
+  {id:89,text:"La perseverancia es el trabajo duro que haces después de cansarte del trabajo duro.",author:"Newt Gingrich",profession:"Político",category:"perseverancia"},
+  {id:90,text:"El éxito es encontrar lo que amas y luego hacer que te paguen por hacerlo.",author:"Victoria Principal",profession:"Actriz",category:"motivacion"},
+  {id:91,text:"El éxito es la suma de pequeños esfuerzos repetidos un día sí y otro también.",author:"Robert Collier",profession:"Autor",category:"exito"},
+  {id:92,text:"La vida es como montar en bicicleta. Para mantener el equilibrio, debes seguir adelante.",author:"Albert Einstein",profession:"Físico",category:"vida"},
+  {id:93,text:"La sabiduría es la recompensa que obtienes por una vida de escucha cuando hubieras preferido hablar.",author:"Doug Larson",profession:"Periodista",category:"sabiduria"},
+  {id:94,text:"No es lo que te pasa, sino cómo reaccionas lo que importa.",author:"Epicteto",profession:"Filósofo",category:"perseverancia"},
+  {id:95,text:"El camino al éxito y la ruina es el mismo.",author:"Seneca",profession:"Filósofo",category:"motivacion"},
+  {id:96,text:"El éxito es hacer lo que te propones con pasión.",author:"Anónimo",profession:"Sabiduría Popular",category:"exito"},
+  {id:97,text:"La vida es un regalo. Cada día es una nueva oportunidad.",author:"Anónimo",profession:"Sabiduría Popular",category:"vida"},
+  {id:98,text:"La verdadera inteligencia es saber cuándo pedir ayuda.",author:"Anónimo",profession:"Sabiduría Popular",category:"sabiduria"},
+  {id:99,text:"La perseverancia convierte los sueños en logros.",author:"Anónimo",profession:"Sabiduría Popular",category:"perseverancia"},
+  {id:100,text:"La motivación es lo que te pone en marcha. El hábito es lo que te mantiene en marcha.",author:"Jim Ryun",profession:"Atleta",category:"motivacion"},
+  {id:101,text:"El éxito es un resultado de la preparación diaria.",author:"Zig Ziglar",profession:"Orador Motivacional",category:"exito"},
+  {id:102,text:"La vida es demasiado corta para no ser feliz.",author:"Anónimo",profession:"Sabiduría Popular",category:"vida"},
+  {id:103,text:"La sabiduría viene con la experiencia, no con la edad.",author:"Anónimo",profession:"Sabiduría Popular",category:"sabiduria"},
+  {id:104,text:"La perseverancia es la madre del éxito.",author:"Proverbio",profession:"Sabiduría Popular",category:"perseverancia"},
+  {id:105,text:"El éxito comienza con un solo paso.",author:"Lao Tzu",profession:"Filósofo",category:"motivacion"},
+  {id:106,text:"La vida es un libro. Escribe tu propia historia.",author:"Anónimo",profession:"Sabiduría Popular",category:"vida"},
+  {id:107,text:"La sabiduría es saber distinguir lo importante de lo trivial.",author:"Anónimo",profession:"Sabiduría Popular",category:"sabiduria"},
+  {id:108,text:"El éxito es 1% inspiración y 99% transpiración.",author:"Thomas Edison",profession:"Inventor",category:"exito"},
+  {id:109,text:"La perseverancia es el alma de toda victoria.",author:"Anónimo",profession:"Sabiduría Popular",category:"perseverancia"},
+  {id:110,text:"La motivación es fuego. El sistema es el horno.",author:"Jesse Jackson",profession:"Activista",category:"motivacion"},
+  {id:111,text:"El éxito es saber quién eres y qué quieres.",author:"Anónimo",profession:"Sabiduría Popular",category:"exito"},
+  {id:112,text:"La vida es un regalo que se abre cada mañana.",author:"Anónimo",profession:"Sabiduría Popular",category:"vida"},
+  {id:113,text:"La sabiduría es el arte de saber lo que ignorar.",author:"William James",profession:"Psicólogo",category:"sabiduria"},
+  {id:114,text:"La perseverancia es la virtud de los fuertes.",author:"Anónimo",profession:"Sabiduría Popular",category:"perseverancia"},
+  {id:115,text:"El éxito es un viaje, no un destino.",author:"Ben Sweetland",profession:"Autor",category:"motivacion"},
+  {id:116,text:"La vida es lo que construyes día a día.",author:"Anónimo",profession:"Sabiduría Popular",category:"vida"},
+  {id:117,text:"La verdadera sabiduría es actuar con moderación.",author:"Anónimo",profession:"Sabiduría Popular",category:"sabiduria"},
+  {id:118,text:"El éxito viene de hacer lo correcto repetidamente.",author:"Anónimo",profession:"Sabiduría Popular",category:"exito"},
+  {id:119,text:"La perseverancia vence cualquier obstáculo.",author:"Anónimo",profession:"Sabiduría Popular",category:"perseverancia"},
+  {id:120,text:"La motivación te lleva a empezar. La disciplina te lleva a terminar.",author:"Jim Rohn",profession:"Orador Motivacional",category:"motivacion"},
+  {id:121,text:"El éxito es la capacidad de ir de fracaso en fracaso sin perder el entusiasmo.",author:"Winston Churchill",profession:"Primer Ministro Británico",category:"exito"},
+  {id:122,text:"La vida es una aventura audaz o nada.",author:"Helen Keller",profession:"Activista",category:"vida"},
+  {id:123,text:"La sabiduría es la hija de la experiencia.",author:"León Tolstói",profession:"Escritor",category:"sabiduria"},
+  {id:124,text:"La perseverancia es el camino al éxito.",author:"Anónimo",profession:"Sabiduría Popular",category:"perseverancia"},
+  {id:125,text:"El éxito comienza con la decisión de intentarlo.",author:"Anónimo",profession:"Sabiduría Popular",category:"motivacion"}
+];
+
+const CATEGORIES = {
+  motivacion: { label: "Motivación", color: "#e8c96a", icon: "fas fa-fire" },
+  exito:      { label: "Éxito",      color: "#5ec98a", icon: "fas fa-trophy" },
+  sabiduria:  { label: "Sabiduría",  color: "#a78bea", icon: "fas fa-lightbulb" },
+  perseverancia:{ label: "Perseverancia", color: "#5ba8e8", icon: "fas fa-mountain" },
+  vida:       { label: "Vida",       color: "#e87fa3", icon: "fas fa-heart" },
+};
+
+/* ── API SIMULATION ── */
+const API = {
+  random(category) {
+    const pool = category ? QUOTES.filter(q => q.category === category) : QUOTES;
+    const q = pool[Math.floor(Math.random() * pool.length)];
+    return { status: 200, data: { quote: q, endpoint: `/api/v1/random${category?'?category='+category:''}`} };
+  },
+  list(category, limit = 5, page = 1) {
+    let pool = category ? QUOTES.filter(q => q.category === category) : QUOTES;
+    const total = pool.length;
+    const start = (page - 1) * limit;
+    pool = pool.slice(start, start + limit);
+    return { status: 200, data: { quotes: pool, total, page, limit, endpoint: `/api/v1/quotes${category?'?category='+category:''}` } };
+  },
+  byId(id) {
+    const q = QUOTES.find(q => q.id === id);
+    if (!q) return { status: 404, data: { error: "Quote not found", code: 404 } };
+    return { status: 200, data: { quote: q, endpoint: `/api/v1/quotes/${id}` } };
+  },
+  categories() {
+    const cats = Object.entries(CATEGORIES).map(([slug, info]) => ({
+      slug, label: info.label, count: QUOTES.filter(q => q.category === slug).length
+    }));
+    return { status: 200, data: { categories: cats, total: cats.length } };
+  }
+};
+
+/* ── STATS ── */
+document.getElementById('total-quotes').textContent = QUOTES.length;
+document.getElementById('total-cats').textContent = Object.keys(CATEGORIES).length;
+const authors = [...new Set(QUOTES.map(q => q.author))];
+document.getElementById('total-authors').textContent = authors.length;
+
+/* ── DEMO ── */
+let currentCat = '';
+
+function showQuote(cat) {
+  const r = API.random(cat);
+  const q = r.data.quote;
+  const el = document.getElementById('quote-text');
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  setTimeout(() => {
+    el.textContent = q.text;
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+    document.getElementById('quote-author').textContent = '— ' + q.author;
+    document.getElementById('quote-profession').textContent = q.profession;
+    const catInfo = CATEGORIES[q.category];
+    document.getElementById('quote-category').textContent = catInfo.label;
+    document.getElementById('quote-category').style.background = `rgba(255,255,255,0.1)`;
+    document.getElementById('quote-id').textContent = '#' + q.id;
+  }, 200);
+}
+
+document.querySelectorAll('[data-cat]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-cat]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCat = btn.dataset.cat;
+    showQuote(currentCat);
+  });
+});
+
+document.getElementById('btn-random').addEventListener('click', () => {
+  document.getElementById('quote-text').style.animation = 'shimmer 0.5s';
+  setTimeout(() => showQuote(currentCat || ''), 300);
+});
+
+showQuote('');
+
+/* ── CATEGORIES EXPLORER ── */
+const catsGrid = document.getElementById('cats-grid');
+
+Object.entries(CATEGORIES).forEach(([slug, info]) => {
+  const pill = document.createElement('div');
+  pill.className = 'cat-pill';
+  pill.innerHTML = `
+    <i class="${info.icon}"></i>
+    <div>${info.label}</div>
+    <div class="cat-count">${QUOTES.filter(q => q.category === slug).length} frases</div>
+  `;
+  pill.addEventListener('click', () => {
+    document.querySelector('[data-cat=""').click();
+    const catBtn = document.querySelector(`[data-cat="${slug}"]`);
+    if (catBtn) catBtn.click();
+  });
+  catsGrid.appendChild(pill);
+});
+
+/* ── RECENT QUOTES ── */
+const recentQuotes = document.getElementById('recent-quotes');
+const recent = QUOTES.slice(-5).reverse();
+
+recent.forEach(quote => {
+  const mini = document.createElement('div');
+  mini.className = 'quote-mini';
+  mini.innerHTML = `
+    <div class="quote-mini-mark">"</div>
+    <div>
+      <div class="quote-mini-text">${quote.text}</div>
+      <div class="quote-mini-author">
+        — ${quote.author} 
+        <span style="color: var(--muted); font-size: 11px;">(${quote.profession})</span>
+      </div>
+    </div>
+  `;
+  mini.addEventListener('click', () => {
+    showQuote(quote.category);
+    document.querySelector(`[data-cat="${quote.category}"]`).click();
+  });
+  recentQuotes.appendChild(mini);
+});
+</script>
+</body>
+</html>
